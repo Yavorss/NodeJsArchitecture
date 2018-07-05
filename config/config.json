@@ -1,0 +1,84 @@
+{
+    "development": {
+        "api": {
+            "aws": {
+                "key": "@@@@@",
+                "secret": "@@@@@"
+            }
+        },
+        "cookie": {
+            "secret": "UlTiMaTeSeCrEtKeY"
+        },
+        "token": {
+            "secret": "UlTiMaTeSeCrEtKeY"
+        },
+        "bcrypt": {
+            "SALT_FACTOR": 10
+        },
+        "passport": {
+            "secret": "UlTiMaTeSeCrEtKeY"
+        },
+        "multer": {
+            "dest": "../../../uploads"
+        },
+        "db": {
+            "mongo": {
+                "uri": ""
+            },
+            "redis": {
+                "host": "localhost",
+                "port": 6379,
+                "password": null,
+                "namespace": ""
+            },
+            "mysql": {
+                "username": "root",
+                "password": "root",
+                "database": "hype",
+                "host": "127.0.0.1",
+                "dialect": "mysql"
+            }
+        }
+    },
+    "test": {},
+    "production": {
+        "api": {
+            "aws": {
+                "key": "@@@@@",
+                "secret": "@@@@@"
+            }
+        },
+        "cookie": {
+            "secret": "UlTiMaTeSeCrEtKeY"
+        },
+        "token": {
+            "secret": "UlTiMaTeSeCrEtKeY"
+        },
+        "bcrypt": {
+            "SALT_FACTOR": 10
+        },
+        "db": {
+            "mongo": {
+                "host": "localhost",
+                "port": 27017,
+                "username": null,
+                "password": null,
+                "db": ""
+            },
+            "redis": {
+                "host": "localhost",
+                "port": 6379,
+                "password": null,
+                "namespace": ""
+            },
+            "mysql": {
+                "username": "root",
+                "password": null,
+                "database": "database_production",
+                "host": "127.0.0.1",
+                "dialect": "mysql"
+            }
+        }
+    }
+
+}
