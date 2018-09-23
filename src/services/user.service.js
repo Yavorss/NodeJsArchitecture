@@ -19,11 +19,13 @@ const userService = (data, config) => {
   };
 
   const getUserById = (id, includes = []) => {
-    return data.user.getById(id, includes);
+    return data.user.getOneByCriteria({
+      id,
+    }, includes);
   };
 
-  const getUsers = async () => {
-    const users = await data.user.findAll({}, [{
+  const getAllUsers = async () => {
+    const users = await data.user.getAllByCriteria({}, [{
       model: 'Role',
       attributes: ['title'],
     }], [
@@ -35,64 +37,28 @@ const userService = (data, config) => {
     return users;
   };
 
-  const getUser = (options) => {
-    return data.user.getOneByCriteria(options, [{
+  const getUser = async (options) => {
+    return await data.user.getOneByCriteria(options, [{
       model: 'Role',
     }]);
   };
 
   const login = (user, rememberMe) => {
     const tokenUser = setUserInfo(user);
+
     return generateToken(tokenUser, rememberMe);
   };
 
   const register = async (userData) => {
-    const userExcists = await getUser({
-      email: userData.email,
+    return await data.user.create(userData).catch((error) => {
+      throw new Error(error.message);
     });
-
-    if (userExcists) {
-      return {
-        err: 'That email address is already in use!',
-      };
-    }
-
-    const passwordExcists = await data.user.getOneByCriteria({
-      password: userData.password,
-    });
-
-    if (passwordExcists) {
-      return {
-        err: 'The pincode is already in use!',
-      };
-    }
-
-    const theRole = await data.role.getOneByCriteria({
-      title: userData.role,
-    });
-
-    if (!theRole) {
-      return {
-        err: 'Something went wrong!',
-      };
-    }
-
-    const user = await data.user.create({
-      avatar: 'https://npengage.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png',
-      email: userData.email,
-      password: userData.password,
-      phone: userData.phone,
-      name: userData.name,
-      RoleId: theRole.id,
-    });
-
-    return user;
   };
 
   return {
     getUser,
     getUserById,
-    getUsers,
+    getAllUsers,
     login,
     register,
     setUserInfo,

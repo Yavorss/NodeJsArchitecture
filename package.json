@@ -8,6 +8,10 @@
   },
   "scripts": {
     "start": "node ./bin/www",
+    "make:migration": "cd ./src/db && node ./../../node_modules/sequelize-auto-migrations/bin/makemigration.js",
+    "migrate": "cd ./src/db && sequelize db:migrate",
+    "seed:all": "cd ./src/db && sequelize db:seed:all",
+    "seed:undo:all": "cd ./src/db && sequelize db:seed:undo:all",
     "test": "jest"
   },
   "keywords": [],
@@ -21,7 +25,7 @@
     "express": "^4.16.3",
     "hbs": "^4.0.1",
     "http-errors": "^1.6.3",
-    "jest": "^23.2.0",
+    "jest": "^23.6.0",
     "jsonwebtoken": "^8.3.0",
     "morgan": "^1.9.0",
     "multer": "^1.3.0",
@@ -37,7 +41,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^8.2.5",
-    "eslint": "^5.0.0",
+    "eslint": "^5.6.0",
     "eslint-config-google": "^0.9.1",
     "sequelize-cli": "^4.0.0"
   }

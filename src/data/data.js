@@ -1,9 +1,12 @@
-const {
-  User,
-} = require('../db/models');
+const init = (models, genericData) => {
+  const data = {
+    user: genericData(models.User, {
+      Role: models.Role,
+    }),
+    role: genericData(models.Role, {}),
+  };
 
-const data = require('./generic.data');
-
-module.exports = {
-  user: data(User, {}),
+  return data;
 };
+
+module.exports = init;

@@ -1,11 +1,11 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     avatar: DataTypes.STRING,
     name: DataTypes.STRING,
     password: {
       type: DataTypes.STRING,
-      unique: true,
     },
     email: {
       type: DataTypes.STRING,
@@ -19,11 +19,11 @@ module.exports = (sequelize, DataTypes) => {
     paranoid: true,
   });
   User.associate = (models) => {
-    // const {
-    //   Role,
-    // } = models;
+    const {
+      Role,
+    } = models;
 
-    // User.belongsTo(Role);
+    User.belongsTo(Role);
   };
 
   return User;

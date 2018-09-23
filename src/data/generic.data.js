@@ -1,8 +1,4 @@
-const data = (Model, models = {}) => {
-  const getAll = () => {
-    return Model.findAll();
-  };
-
+const data = (Model, models = {}, sequelize) => {
   const decorator = (fn) => {
     return (obj, includes = [], attributes = {}) => {
       includes = includes.map((include) => {
@@ -15,21 +11,6 @@ const data = (Model, models = {}) => {
 
       return result;
     };
-  };
-
-  const findAll = (obj, includes = [], attributes = {}) => {
-    return Model.findAll({
-      where: obj,
-      attributes: attributes,
-      include: includes,
-    });
-  };
-
-  const getById = (id, includes = [], attributes = {}) => {
-    return Model.findById(id, {
-      attributes: attributes,
-      include: includes,
-    });
   };
 
   const getOneByCriteria = (findObj, includes = [], attributes = {}) => {
@@ -48,20 +29,6 @@ const data = (Model, models = {}) => {
     });
   };
 
-  const update = (obj, options) => {
-    return Model.update(obj, options);
-  };
-
-  const create = (obj) => {
-    return Model.create(obj);
-  };
-
-  const remove = (obj) => {
-    return Model.destroy({
-      where: obj,
-    });
-  };
-
   const findCreateFind = (obj) => {
     return Model.findCreateFind({
       where: obj,
@@ -69,10 +36,21 @@ const data = (Model, models = {}) => {
     });
   };
 
+  const update = (obj, options) => {
+    return Model.update(obj, options);
+  };
+
+  const create = (obj, transaction = {}) => {
+    return Model.create(obj, transaction);
+  };
+
+  const remove = (obj, transaction = {}) => {
+    return Model.destroy({
+      where: obj,
+    }, transaction);
+  };
+
   return {
-    findAll: decorator(findAll),
-    getAll: decorator(getAll),
-    getById: decorator(getById),
     getOneByCriteria: decorator(getOneByCriteria),
     getAllByCriteria: decorator(getAllByCriteria),
     findCreateFind,
