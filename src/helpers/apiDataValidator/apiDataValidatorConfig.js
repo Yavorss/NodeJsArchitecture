@@ -13,7 +13,7 @@ const apiDataValidatorConfig = (
     'Please, fill all required fields with valid data!'
   );
   validatorInfo.optional = (validatorInfo.optional || false);
-  validatorInfo.errorMsg = (validatorInfo.optional || null);
+  validatorInfo.errorMsg = (validatorInfo.errorMsg || null);
 
   if (typeof data === 'undefined' && !validatorInfo.optional) {
     throw new Error(validatorInfo.empty);
